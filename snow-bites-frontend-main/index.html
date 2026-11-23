@@ -19,11 +19,11 @@
 
   <body>
     <div id="root"></div>
-    <!--
-      API URL (avoids hitting localhost:4000 in production). Paste BEFORE the module script, then deploy:
-      <script>window.__SNOW_BITES_API_URL__="https://your-backend.example.com";</script>
-      Or set VITE_API_URL when running `npm run build` in your host. No /api suffix required.
-    -->
+    <script>
+      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+        window.__SNOW_BITES_API_URL__ = window.location.origin;
+      }
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
