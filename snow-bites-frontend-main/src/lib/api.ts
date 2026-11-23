@@ -22,52 +22,36 @@ function normalizeToApiBase(raw: string): string {
   return `${base}/api`;
 }
 
-function getRuntimeOrBuildApiUrl(): string | undefined {
-  if (typeof window !== "undefined" && window.__SNOW_BITES_API_URL__?.trim()) {
-    return window.__SNOW_BITES_API_URL__!.trim();
-  }
-  if (__SNOW_BITES_API_FROM_BUILD?.trim()) {
-    return __SNOW_BITES_API_FROM_BUILD.trim();
-  }
-  const v =
-    import.meta.env.VITE_API_URL?.trim() || import.meta.env.VITE_API_BASE_URL?.trim();
-  return v || undefined;
-}
-
-function resolveApiBaseUrl(): string {
-  const fromConfig = getRuntimeOrBuildApiUrl();
-  if (fromConfig) {
-    return normalizeToApiBase(fromConfig);
-  }
-  
-  // Auto-detect ngrok domain
+export function getApiBaseUrl(): string {
   if (typeof window !== "undefined") {
-    const hostname = window.location.hostname;
-    const protocol = window.location.protocol;
-    if (hostname.includes("ngrok") || hostname.includes(".dev")) {
-      // For ngrok: use the same hostname with port 4000
-      return `${protocol}//${hostname}:4000/api`;
+    if (window.__SNOW_BITES_API_URL__?.trim()) {
+      return normalizeToApiBase(window.__SNOW_BITES_API_URL__.trim());
     }
+    const hostname = window.location.hostname;
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return "http://localhost:4000/api";
+    }
+    if (hostname.includes("ngrok") || hostname.includes(".dev")) {
+      return `${window.location.protocol}//${hostname}:4000/api`;
+    }
+    return `${window.location.origin}/api`;
   }
-  
-  if (import.meta.env.DEV) {
-    return "http://localhost:4000/api";
+
+  const v =
+    (typeof __SNOW_BITES_API_FROM_BUILD !== "undefined" && __SNOW_BITES_API_FROM_BUILD?.trim()) ||
+    import.meta.env.VITE_API_URL?.trim() ||
+    import.meta.env.VITE_API_BASE_URL?.trim();
+  if (v) {
+    return normalizeToApiBase(v);
   }
-  if (import.meta.env.PROD) {
-    console.error(
-      "[Kabob Places] No API URL: set window.__SNOW_BITES_API_URL__ in index.html, or VITE_API_URL / VITE_API_BASE_URL in your build, " +
-        "or deploy same-origin with /api proxied. Using same-origin /api (will fail if API is on another host).",
-    );
-    return "/api";
-  }
-  return "http://localhost:4000/api";
+
+  return "/api";
 }
 
-const API_BASE_URL = resolveApiBaseUrl();
-
-function resolveApiOriginForAssets(): string {
-  if (API_BASE_URL.startsWith("http")) {
-    return API_BASE_URL.replace(/\/api\/?$/, "");
+export function getApiOrigin(): string {
+  const base = getApiBaseUrl();
+  if (base.startsWith("http")) {
+    return base.replace(/\/api\/?$/, "");
   }
   if (typeof window !== "undefined") {
     return window.location.origin;
@@ -75,7 +59,8 @@ function resolveApiOriginForAssets(): string {
   return "";
 }
 
-const API_ORIGIN = resolveApiOriginForAssets();
+export const API_BASE_URL = getApiBaseUrl();
+export const API_ORIGIN = getApiOrigin();
 
 const fallbackImages: Record<string, string> = {
   broaster: chickenImg,
@@ -104,8 +89,18 @@ export function getApiAssetUrl(assetPath?: string | null) {
   if (/^(https?:)?\/\//.test(assetPath) || assetPath.startsWith("data:")) {
     return assetPath;
   }
+  if (assetPath.startsWith("/src/assets/") || assetPath.startsWith("src/assets/")) {
+    const filename = assetPath.replace(/^(\/)?src\/assets\//, "");
+    if (filename.includes("chicken")) return chickenImg;
+    if (filename.includes("burger")) return burger2Img;
+    if (filename.includes("fries")) return friesImg;
+    if (filename.includes("pizza")) return pizzaImg;
+    if (filename.includes("shawarma")) return shawarmaImg;
+    if (filename.includes("noodles")) return noodlesImg;
+  }
 
-  return `${API_ORIGIN}${assetPath.startsWith("/") ? assetPath : `/${assetPath}`}`;
+  const origin = getApiOrigin();
+  return `${origin}${assetPath.startsWith("/") ? assetPath : `/${assetPath}`}`;
 }
 
 export interface AuthResponse {
@@ -659,7 +654,7 @@ async function apiRequest<T>(path: string, init?: RequestInit, token?: string): 
     headers.set("Authorization", `Bearer ${token}`);
   }
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(`${getApiBaseUrl()}${path}`, {
     ...init,
     headers,
   });
@@ -915,7 +910,7 @@ export async function downloadAdminOrdersCsv(
   if (filters?.search) params.set("search", filters.search);
   if (filters?.riderId) params.set("riderId", String(filters.riderId));
 
-  const response = await fetch(`${API_BASE_URL}/admin/orders/export.csv${params.toString() ? `?${params.toString()}` : ""}`, {
+  const response = await fetch(`${getApiBaseUrl()}/admin/orders/export.csv${params.toString() ? `?${params.toString()}` : ""}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

@@ -6,24 +6,27 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <title>Kabob Places | Kabobs y Comida Rápida en Iquique</title>
+    <title>Kabob Place | Kabobs y Comida Rápida en Iquique</title>
     <meta name="description" content="Auténticos kabobs, shawarma, hamburguesas y pizzas en Iquique. Ingredientes frescos, sabor intenso y entrega rápida desde Santa Rosa de Huara." />
-    <meta name="author" content="Kabob Places" />
+    <meta name="author" content="Kabob Place" />
 
-    <meta property="og:title" content="Kabob Places | Kabobs y Comida Rápida en Iquique" />
+    <meta property="og:title" content="Kabob Place | Kabobs y Comida Rápida en Iquique" />
     <meta property="og:description" content="Auténticos kabobs, shawarma, hamburguesas y comida rápida en Iquique, Chile." />
     <meta property="og:type" content="website" />
 
     <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      (function() {
+        var h = window.location.hostname;
+        if (h && h !== 'localhost' && h !== '127.0.0.1' && !h.includes('.dev') && !h.includes('ngrok')) {
+          window.__SNOW_BITES_API_URL__ = window.location.origin;
+        }
+      })();
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
-    <script>
-      if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-        window.__SNOW_BITES_API_URL__ = window.location.origin;
-      }
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

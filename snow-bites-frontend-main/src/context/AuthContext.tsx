@@ -7,8 +7,8 @@ interface AuthContextValue {
   isReady: boolean;
   isAuthenticated: boolean;
   isAdmin: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  register: (fullName: string, email: string, password: string, phone?: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<ApiUser>;
+  register: (fullName: string, email: string, password: string, phone?: string) => Promise<ApiUser>;
   refreshUser: () => Promise<void>;
   setAuthenticatedUser: (user: ApiUser) => void;
   logout: () => void;
@@ -90,6 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setToken(data.token);
       setUser(data.user);
       setIsReady(true);
+      return data.user;
     },
     async register(fullName, email, password, phone) {
       const data = await registerRequest(fullName, email, password, phone);
@@ -97,6 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setToken(data.token);
       setUser(data.user);
       setIsReady(true);
+      return data.user;
     },
     async refreshUser() {
       await refreshUser();

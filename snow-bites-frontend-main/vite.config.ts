@@ -8,13 +8,14 @@ export default defineConfig(async ({ mode }): Promise<UserConfig> => {
   // Hostinger/CI set VITE_* on `process.env` for the build; that does not always reach `import.meta.env` in the client
   // bundle, so we inject a compile-time constant the app reads first (see src/lib/api.ts).
   const fileEnv = loadEnv(mode, process.cwd(), ["VITE_"]);
-  const apiFromBuildEnv = [
-    process.env.VITE_API_BASE_URL,
-    process.env.VITE_API_URL,
-    fileEnv.VITE_API_BASE_URL,
-    fileEnv.VITE_API_URL,
-  ]
-    .find((v) => v?.trim())?.trim() ?? "";
+  const apiFromBuildEnv = mode === "production"
+    ? (process.env.VITE_API_BASE_URL || process.env.VITE_API_URL || "")
+    : [
+        process.env.VITE_API_BASE_URL,
+        process.env.VITE_API_URL,
+        fileEnv.VITE_API_BASE_URL,
+        fileEnv.VITE_API_URL,
+      ].find((v) => v?.trim())?.trim() ?? "";
 
   const plugins = [react()];
   if (mode === "development") {

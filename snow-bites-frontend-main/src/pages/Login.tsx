@@ -34,9 +34,10 @@ const Login = () => {
     setLoading(true);
 
     try {
-      await login(email, password);
+      const loggedInUser = await login(email, password);
       const from = (location.state as { from?: string } | null)?.from;
-      navigate(from ?? (isAdmin ? "/admin" : "/account/dashboard"), { replace: true });
+      const target = from ?? (loggedInUser.role === "ADMIN" ? "/admin" : "/account/dashboard");
+      navigate(target, { replace: true });
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "Login failed.");
     } finally {

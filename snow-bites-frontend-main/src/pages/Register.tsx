@@ -40,8 +40,8 @@ const Register = () => {
     setLoading(true);
 
     try {
-      await register(fullName, email, password, phone || undefined);
-      navigate("/account/dashboard", { replace: true });
+      const registeredUser = await register(fullName, email, password, phone || undefined);
+      navigate(registeredUser.role === "ADMIN" ? "/admin" : "/account/dashboard", { replace: true });
     } catch (submitError) {
       setError(submitError instanceof Error ? submitError.message : "Registration failed.");
     } finally {
