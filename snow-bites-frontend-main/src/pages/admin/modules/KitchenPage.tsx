@@ -386,7 +386,7 @@ const KitchenPage = () => {
 							)}
 						>
 							<l.Icon className="h-4 w-4" />
-							{l.label}
+							<span>{l.label}</span>
 							<span className={cn(
 								"ml-1 rounded-full px-2.5 py-0.5 text-[11px] font-bold",
 								activeLane === l.key ? "bg-black/20 text-primary-foreground" : "bg-white/10 text-white/30",
@@ -459,7 +459,7 @@ const KitchenPage = () => {
 							<div key={l.key} className={cn(panelClass, "!p-4")}>
 								<div className="mb-3 flex items-center justify-between">
 									<h4 className="flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-white/40">
-										<l.Icon className={cn("h-3.5 w-3.5", l.text)} /> {l.label}
+										<l.Icon className={cn("h-3.5 w-3.5", l.text)} /> <span>{l.label}</span>
 									</h4>
 									<span className={cn("rounded-full px-2 py-0.5 text-[10px] font-bold", l.count > 0 ? "bg-white/10 text-white/60" : "bg-white/5 text-white/20")}>{l.count}</span>
 								</div>

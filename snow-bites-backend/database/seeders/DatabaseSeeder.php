@@ -80,5 +80,18 @@ class DatabaseSeeder extends Seeder
 
         // Apply Kabob Place Menú Noche categories and menu items
         MenuSeeder::seedNocheMenu();
+
+        // Dynamically align orders relative to now() so metrics, charts, KDS, and riders are live and active
+        $orders = \App\Models\Order::all();
+        if ($orders->isNotEmpty()) {
+            foreach ($orders as $idx => $order) {
+                $daysAgo = ($idx >= 15) ? 0 : (($idx >= 11) ? 1 : (($idx >= 7) ? 2 : (($idx >= 4) ? 3 : 4)));
+                $hoursAgo = ($idx % 6) + 1;
+                $date = now()->subDays($daysAgo)->subHours($hoursAgo);
+                $order->created_at = $date;
+                $order->updated_at = $date;
+                $order->save();
+            }
+        }
     }
 }

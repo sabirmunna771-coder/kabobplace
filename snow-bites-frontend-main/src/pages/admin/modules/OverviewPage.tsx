@@ -201,7 +201,8 @@ const OverviewPage = () => {
 		const revenueChange = yesterdayRevenue > 0 ? ((todayRevenue - yesterdayRevenue) / yesterdayRevenue) * 100 : (todayRevenue > 0 ? 100 : 0);
 
 		const bestSellersMap = new Map<string, number>();
-		for (const order of todayOrders) for (const item of order.items) bestSellersMap.set(item.productName, (bestSellersMap.get(item.productName) ?? 0) + item.quantity);
+		const sourceOrders = todayOrders.length >= 3 ? todayOrders : allOrders;
+		for (const order of sourceOrders) for (const item of order.items) bestSellersMap.set(item.productName, (bestSellersMap.get(item.productName) ?? 0) + item.quantity);
 		const bestSellers = Array.from(bestSellersMap.entries()).sort((a, b) => b[1] - a[1]).slice(0, 5);
 
 		const lowStockCount = ingredients.filter((i) => i.isLowStock).length;
