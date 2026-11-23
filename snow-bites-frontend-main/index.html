@@ -1,8 +1,7 @@
 <!doctype html>
-<html lang="es" class="notranslate" translate="no">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="google" content="notranslate" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" href="/favicon.png" />
@@ -18,31 +17,6 @@
     <meta name="twitter:card" content="summary_large_image" />
     <script>
       (function() {
-        // Prevent DOM reconciliation crash from browser extensions or translation
-        if (typeof Node === 'function' && Node.prototype) {
-          var origRC = Node.prototype.removeChild;
-          Node.prototype.removeChild = function(child) {
-            if (child.parentNode !== this) {
-              if (child.parentNode) {
-                return child.parentNode.removeChild(child);
-              }
-              return child;
-            }
-            return origRC.apply(this, arguments);
-          };
-
-          var origIB = Node.prototype.insertBefore;
-          Node.prototype.insertBefore = function(newNode, refNode) {
-            if (refNode && refNode.parentNode !== this) {
-              if (refNode.parentNode) {
-                return refNode.parentNode.insertBefore(newNode, refNode);
-              }
-              return this.appendChild(newNode);
-            }
-            return origIB.apply(this, arguments);
-          };
-        }
-
         var h = window.location.hostname;
         if (h && h !== 'localhost' && h !== '127.0.0.1' && !h.includes('.dev') && !h.includes('ngrok')) {
           window.__SNOW_BITES_API_URL__ = window.location.origin;
@@ -51,8 +25,8 @@
     </script>
   </head>
 
-  <body class="notranslate">
-    <div id="root" class="notranslate" translate="no"></div>
+  <body>
+    <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
