@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@500;600;700;800&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Kabob Place Brand Palette (Taken from logo) */
+    /* Night Green #071F07 - Page background */
+    --background: 120 63% 7.5%;
+    --bg: 120 63% 7.5%;
+    --bg2: 120 57% 10%;
+    --bg3: 120 69% 14.1%; /* Forest Green #0B3D0B */
+    --bg4: 120 66% 18.5%;
+    --bg5: 120 62% 24%;
+
+    /* Forest Green #0B3D0B - Headers, cards, footer */
+    --card: 120 69% 14.1%;
+    --card-foreground: 45 35% 95%; /* Warm White #F7F5EF */
+    --popover: 120 69% 14.1%;
+    --popover-foreground: 45 35% 95%;
+
+    /* Gold #F2C41C - Buttons, prices, calls to action */
+    --primary: 47 89% 53%;
+    --primary-foreground: 120 63% 7.5%; /* Dark Night Green text on gold for bold readability */
+    --primary-dark: 47 87% 45%;
+    --primary-light: 47 91% 63%;
+
+    /* Secondary / Elevated surface */
+    --secondary: 120 57% 10%;
+    --secondary-foreground: 45 35% 95%;
+
+    /* Lime K #A0D000 - Highlights, icons, links */
+    --accent: 74 100% 41%;
+    --accent-foreground: 120 63% 7.5%;
+    --accent-gold: 47 89% 53%;
+
+    /* Grill Brown #A85A2A - Food accent */
+    --grill-brown: 23 60% 41%;
+
+    /* Warm White #F7F5EF - Main text on dark backgrounds */
+    --foreground: 45 35% 95%;
+    --text: 45 35% 95%;
+
+    /* Soft Sage #B9C6B9 - Support tone, secondary text */
+    --text2: 120 10% 75%;
+    --text3: 120 10% 60%;
+    --text4: 120 11% 41%;
+    --muted: 120 50% 12%;
+    --muted-foreground: 120 10% 75%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 35% 25% / 0.4;
+    --border2: 120 35% 32% / 0.5;
+    --border3: 120 35% 40% / 0.6;
+    --input: 120 35% 20% / 0.5;
+    --ring: 47 89% 53%;
+    --radius: 16px;
+
+    --glass: 120 40% 25% / 0.15;
+    --glass2: 120 40% 25% / 0.25;
+    --glass3: 120 40% 25% / 0.38;
+
+    --glow: 47 89% 53% / 0.4;
+    --glow2: 74 100% 41% / 0.25;
+    --glow3: 74 100% 41% / 0.1;
+
+    --font-display: 'Syne', sans-serif;
+    --font-head: 'Outfit', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    --nav-h: 64px;
+    --bottom-h: 72px;
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+    --ease-bounce: cubic-bezier(.34, 1.56, .64, 1);
+
+    --sidebar-background: 120 63% 7.5%;
+    --sidebar-foreground: 45 35% 95%;
+    --sidebar-primary: 47 89% 53%;
+    --sidebar-primary-foreground: 120 63% 7.5%;
+    --sidebar-accent: 120 69% 14.1%;
+    --sidebar-accent-foreground: 45 35% 95%;
+    --sidebar-border: 120 35% 25% / 0.35;
+    --sidebar-ring: 47 89% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    font-family: var(--font-body);
+    background: hsl(var(--bg));
+    color: hsl(var(--text));
+    overflow-x: hidden;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-head);
+    font-weight: 700;
+    line-height: 1.15;
+  }
+  ::selection {
+    background: hsl(var(--primary));
+    color: #fff;
+  }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--bg)); }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--primary)); border-radius: 4px; }
+}
+
+/* Noise overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.6;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-22px) rotate(5deg); }
+}
+
+@keyframes shimmer {
+  0% { left: -100%; }
+  100% { left: 200%; }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes title-reveal {
+  to { transform: translateY(0); }
+}
+
+@keyframes fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes confetti-fall {
+  0% { transform: translateY(-20px) rotate(0); opacity: 1; }
+  100% { transform: translateY(500px) rotate(720deg); opacity: 0; }
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(40px) scale(.95); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes toast-out {
+  to { opacity: 0; transform: translateX(40px) scale(.95); }
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0); }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+@keyframes btn-shine {
+  from { left: -100%; }
+  to { left: 100%; }
+}
+
+@keyframes preloader-slide {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes preloader-fill {
+  to { width: 100%; }
+}
+
+@keyframes preloader-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes bump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+@keyframes category-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes admin-primary-pulse {
+  0%, 100% { box-shadow: 0 10px 24px rgba(249,115,22,0.18), inset 0 1px 0 rgba(255,255,255,0.1); }
+  50% { box-shadow: 0 12px 30px rgba(249,115,22,0.28), inset 0 1px 0 rgba(255,255,255,0.16); }
+}
+
+.admin-primary-pulse {
+  animation: admin-primary-pulse 3.2s ease-in-out infinite;
+}
