@@ -13,6 +13,21 @@ use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
+if (!file_exists(dirname(__DIR__).'/.env')) {
+    putenv('APP_NAME=Kabob Places');
+    putenv('APP_KEY=base64:U6SoCYwPaDMKfUJEDsxPggYLGHbar3QTqz7m/qwdhm8=');
+    putenv('APP_ENV=production');
+    putenv('APP_DEBUG=false');
+    putenv('APP_URL=https://elkabobplace.com');
+    putenv('DB_CONNECTION=sqlite');
+    $_ENV['APP_NAME'] = 'Kabob Places';
+    $_ENV['APP_KEY'] = 'base64:U6SoCYwPaDMKfUJEDsxPggYLGHbar3QTqz7m/qwdhm8=';
+    $_ENV['APP_ENV'] = 'production';
+    $_ENV['APP_DEBUG'] = 'false';
+    $_ENV['APP_URL'] = 'https://elkabobplace.com';
+    $_ENV['DB_CONNECTION'] = 'sqlite';
+}
+
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
