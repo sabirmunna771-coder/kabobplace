@@ -485,20 +485,20 @@ const OrdersPage = () => {
 											</span>
 											<span className={cn("inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[11px] font-medium", statusClassMap[order.status])}>
 												<StatusIcon className="h-3 w-3" />
-												{order.status.replace(/_/g, " ")}
+												<span>{order.status.replace(/_/g, " ")}</span>
 											</span>
 											{order.assignedRider && (
 												<span className="inline-flex items-center gap-1 rounded-full border border-violet-400/20 bg-violet-400/10 px-2 py-0.5 text-[10px] font-medium text-violet-300">
-													<Bike className="h-3 w-3" /> {order.assignedRider.fullName}
+													<Bike className="h-3 w-3" /> <span>{order.assignedRider.fullName}</span>
 												</span>
 											)}
 										</div>
 										<div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-xs text-white/40">
-											<span className="flex items-center gap-1"><User className="h-3 w-3" /> {order.customerName}</span>
-											<span className="flex items-center gap-1"><Phone className="h-3 w-3" /> {order.customerPhone}</span>
-											<span className="flex items-center gap-1">{inferOrderType(order) === "Delivery" ? <Truck className="h-3 w-3" /> : <MapPin className="h-3 w-3" />} {inferOrderType(order)}</span>
-											<span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {relativeTime(order.createdAt)}</span>
-											{order.items.length > 0 && <span className="flex items-center gap-1"><Package className="h-3 w-3" /> {order.items.length} items</span>}
+											<span className="flex items-center gap-1"><User className="h-3 w-3" /> <span>{order.customerName}</span></span>
+											<span className="flex items-center gap-1"><Phone className="h-3 w-3" /> <span>{order.customerPhone}</span></span>
+											<span className="flex items-center gap-1">{inferOrderType(order) === "Delivery" ? <Truck className="h-3 w-3" /> : <MapPin className="h-3 w-3" />} <span>{inferOrderType(order)}</span></span>
+											<span className="flex items-center gap-1"><Clock className="h-3 w-3" /> <span>{relativeTime(order.createdAt)}</span></span>
+											{order.items.length > 0 && <span className="flex items-center gap-1"><Package className="h-3 w-3" /> <span>{order.items.length} items</span></span>}
 										</div>
 									</div>
 
@@ -575,16 +575,16 @@ const OrdersPage = () => {
 							<div className="flex flex-wrap items-center gap-2">
 								<span className={cn("inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold", statusClassMap[selectedOrder.status])}>
 									{(() => { const I = statusIconMap[selectedOrder.status]; return <I className="h-3.5 w-3.5" />; })()}
-									{selectedOrder.status.replace(/_/g, " ")}
+									<span>{selectedOrder.status.replace(/_/g, " ")}</span>
 								</span>
 								{selectedOrder.assignedRider && (
 									<span className="inline-flex items-center gap-1.5 rounded-full border border-violet-400/20 bg-violet-400/10 px-3 py-1 text-xs font-medium text-violet-300">
-										<Bike className="h-3.5 w-3.5" /> {selectedOrder.assignedRider.fullName}
+										<Bike className="h-3.5 w-3.5" /> <span>{selectedOrder.assignedRider.fullName}</span>
 									</span>
 								)}
 								{selectedOrder.couponCode && (
 									<span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-3 py-1 text-xs font-medium text-emerald-300">
-										<Tag className="h-3.5 w-3.5" /> {selectedOrder.couponCode} ({selectedOrder.discountLabel})
+										<Tag className="h-3.5 w-3.5" /> <span>{selectedOrder.couponCode} ({selectedOrder.discountLabel})</span>
 									</span>
 								)}
 								<span className="text-xs text-white/30">{fmtDate(selectedOrder.createdAt)}</span>
@@ -672,7 +672,7 @@ const OrdersPage = () => {
 																: "border-white/10 bg-white/[0.03] text-white/50 hover:border-white/20 hover:bg-white/[0.06]",
 														)}
 													>
-														<SI className="h-3 w-3" /> {s.replace(/_/g, " ")}
+														<SI className="h-3 w-3" /> <span>{s.replace(/_/g, " ")}</span>
 													</button>
 												);
 											})}
@@ -688,7 +688,7 @@ const OrdersPage = () => {
 											onClick={() => openRiderAssign(selectedOrder.id, selectedOrder.assignedRiderId)}
 										>
 											<Bike className="mr-1.5 h-3.5 w-3.5" />
-											{selectedOrder.assignedRider ? `Change (${selectedOrder.assignedRider.fullName})` : "Assign Rider"}
+											<span>{selectedOrder.assignedRider ? `Change (${selectedOrder.assignedRider.fullName})` : "Assign Rider"}</span>
 										</Button>
 									</div>
 								</div>

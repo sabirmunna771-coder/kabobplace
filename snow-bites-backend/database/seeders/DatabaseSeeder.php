@@ -7,7 +7,6 @@ use App\Models\Branch;
 use App\Models\User;
 use App\Support\MenuSeeder;
 use App\Support\SettingsDefaults;
-use App\Support\SqlDumpImporter;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,12 +14,6 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $sqlPath = base_path('../sbkhaplu.sql');
-        if (is_file($sqlPath)) {
-            $importer = new SqlDumpImporter();
-            $importer->importFile($sqlPath);
-        }
-
         // Ensure primary Kabob Places admin login & compatibility login both exist
         $adminHash = Hash::make('Admin@12345');
 
@@ -72,10 +65,6 @@ class DatabaseSeeder extends Seeder
             AppSettings::create(SettingsDefaults::defaultAttributes());
         } else {
             $settings->update(SettingsDefaults::defaultAttributes());
-        }
-
-        if (isset($importer)) {
-            $importer->resetPostgresSequences();
         }
 
         // Apply Kabob Place Menú Noche categories and menu items

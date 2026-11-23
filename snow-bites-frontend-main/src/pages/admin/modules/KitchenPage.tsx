@@ -188,7 +188,7 @@ const TicketCard = ({
 					onClick={() => onAdvance(order.id)}
 					disabled={isUpdating}
 				>
-					{advanceIcon} {advanceLabel}
+					{advanceIcon} <span>{advanceLabel}</span>
 				</Button>
 			)}
 		</div>
@@ -547,7 +547,7 @@ const KitchenPage = () => {
 							disabled={bulkAdvanceMut.isPending}
 							onClick={() => bulkAdvanceMut.mutate()}
 						>
-							<Zap className="mr-1.5 h-4 w-4" /> Advance {selectedIds.size} Orders
+							<Zap className="mr-1.5 h-4 w-4" /> <span>Advance {selectedIds.size} Orders</span>
 						</Button>
 					</DialogFooter>
 				</DialogContent>
