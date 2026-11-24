@@ -7,20 +7,14 @@ use App\Models\Branch;
 use App\Models\User;
 use App\Support\MenuSeeder;
 use App\Support\SettingsDefaults;
-use App\Support\SqlDumpImporter;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        $sqlPath = base_path('../sbkhaplu.sql');
-        if (is_file($sqlPath)) {
-            $importer = new SqlDumpImporter();
-            $importer->importFile($sqlPath);
-        }
-
         // Ensure primary Kabob Places admin login & compatibility login both exist
         $adminHash = Hash::make('Admin@12345');
 
@@ -54,10 +48,10 @@ class DatabaseSeeder extends Seeder
                 'status' => 'ACTIVE',
                 'is_primary' => true,
             ]);
-            Branch::where('id', '!=', $primaryBranch->id)->update(['is_primary' => false]);
+            Branch::where('id', '!=', $primaryBranch->id)->delete();
         } else {
             Branch::create([
-                'code' => 'IQQ-001',
+                'code' => '001',
                 'name' => 'Kabob Places — Iquique Principal',
                 'address' => 'Dirección santa rosa de huara manzana D sitio 29 iquique',
                 'phone' => '+569 9103 0440',
@@ -74,21 +68,28 @@ class DatabaseSeeder extends Seeder
             $settings->update(SettingsDefaults::defaultAttributes());
         }
 
-        if (isset($importer)) {
-            $importer->resetPostgresSequences();
-        }
-
-        // Apply Kabob Place Menú Noche categories and menu items
+        // Apply Kabob Place Menú Noche categories (clean, zero dummy products)
         MenuSeeder::seedNocheMenu();
 
-        // Clear all dummy/test orders, logs, and dummy customers so the store is 100% clean and dynamic
-        \Illuminate\Support\Facades\DB::table('order_items')->delete();
-        \Illuminate\Support\Facades\DB::table('order_status_histories')->delete();
-        \Illuminate\Support\Facades\DB::table('orders')->delete();
-        \Illuminate\Support\Facades\DB::table('staff_activity_logs')->delete();
-        \Illuminate\Support\Facades\DB::table('inventory_waste_logs')->delete();
-        \Illuminate\Support\Facades\DB::table('inventory_restock_logs')->delete();
-        \Illuminate\Support\Facades\DB::table('reviews')->delete();
-        \App\Models\User::where('role', 'CUSTOMER')->delete();
+        // Clear all dummy/test data so the store is 100% clean and dynamic
+        DB::table('order_items')->delete();
+        DB::table('order_status_histories')->delete();
+        DB::table('orders')->delete();
+        DB::table('staff_activity_logs')->delete();
+        DB::table('inventory_waste_logs')->delete();
+        DB::table('inventory_restock_logs')->delete();
+        DB::table('branch_ingredient_stocks')->delete();
+        DB::table('ingredients')->delete();
+        DB::table('vendor_supplies')->delete();
+        DB::table('vendors')->delete();
+        DB::table('riders')->delete();
+        DB::table('staff_members')->delete();
+        DB::table('reviews')->delete();
+        DB::table('coupons')->delete();
+        DB::table('flash_sales')->delete();
+        DB::table('marketing_notifications')->delete();
+        DB::table('hero_banners')->delete();
+        DB::table('announcement_bars')->delete();
+        User::where('role', '!=', 'ADMIN')->delete();
     }
 }

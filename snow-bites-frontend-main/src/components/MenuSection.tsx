@@ -91,27 +91,33 @@ const MenuSection = () => {
             <h3 className="text-lg font-display">{activeCat.label}</h3>
           </div>
 
-          <div className="flex flex-col gap-1">
-            {activeItems.map((item) => (
-              <div key={item.dbId} className="flex items-center py-3.5 px-3 sm:px-[18px] bg-bg-3 border border-border rounded-[10px] transition-all hover:bg-bg-4 hover:border-border2 hover:translate-x-1 gap-2 sm:gap-3">
-                <span className="flex-1 font-medium text-xs sm:text-sm">{item.name}</span>
-                <div className="flex items-center gap-1.5">
-                  {item.isSpicy && <span className="inline-flex items-center gap-0.5 text-red-400" title={t('featured.spicy')}><Flame size={13} /></span>}
-                  {item.isVegetarian && <span className="inline-flex items-center gap-0.5 text-emerald-400" title={t('featured.veg')}><Leaf size={13} /></span>}
-                  {item.bestSeller && <span className="inline-flex items-center gap-0.5 text-primary" title={t('featured.bestseller')}><Award size={13} /></span>}
+          {activeItems.length === 0 ? (
+            <div className="py-10 text-center bg-bg-3/40 border border-border/60 rounded-[14px] px-4">
+              <p className="text-txt-3 text-sm font-medium">Platos próximamente disponibles en esta categoría.</p>
+              <p className="text-txt-4 text-xs mt-1">Los administradores pueden agregar productos desde el panel de catálogo.</p>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-1">
+              {activeItems.map((item) => (
+                <div key={item.dbId} className="flex items-center py-3.5 px-3 sm:px-[18px] bg-bg-3 border border-border rounded-[10px] transition-all hover:bg-bg-4 hover:border-border2 hover:translate-x-1 gap-2 sm:gap-3">
+                  <span className="flex-1 font-medium text-xs sm:text-sm">{item.name}</span>
+                  <div className="flex items-center gap-1.5">
+                    {item.isSpicy && <span className="inline-flex items-center gap-0.5 text-red-400" title={t('featured.spicy')}><Flame size={13} /></span>}
+                    {item.isVegetarian && <span className="inline-flex items-center gap-0.5 text-emerald-400" title={t('featured.veg')}><Leaf size={13} /></span>}
+                    {item.bestSeller && <span className="inline-flex items-center gap-0.5 text-primary" title={t('featured.bestseller')}><Award size={13} /></span>}
+                  </div>
+                  {item.badge ? <span className="hidden sm:inline text-[.65rem] uppercase tracking-[1px] text-accent font-semibold">{item.badge}</span> : null}
+                  <span className="font-bold text-primary font-display text-sm min-w-[70px] text-right px-1 sm:px-2">{formatPrice(item.price)}</span>
+                  <button
+                    onClick={() => addItem(item)}
+                    className="rounded-lg bg-primary text-primary-foreground px-3 py-1.5 text-[.72rem] font-bold hover:brightness-105 active:scale-95 transition-all shadow-sm shrink-0"
+                  >
+                    {t('menu.add')}
+                  </button>
                 </div>
-                {item.badge ? <span className="hidden sm:inline text-[.65rem] uppercase tracking-[1px] text-accent font-semibold">{item.badge}</span> : null}
-                <span className="font-bold text-primary font-display text-sm min-w-[70px] text-right px-1 sm:px-2">{formatPrice(item.price)}</span>
-                <button
-                  onClick={() => addItem(item)}
-                  className="rounded-lg bg-primary text-primary-foreground px-3 py-1.5 text-[.72rem] font-bold hover:brightness-105 active:scale-95 transition-all shadow-sm shrink-0"
-                >
-                  {t('menu.add')}
-                </button>
-              </div>
-            ))}
-            {activeItems.length === 0 ? <p className="text-sm text-txt-3">—</p> : null}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </section>

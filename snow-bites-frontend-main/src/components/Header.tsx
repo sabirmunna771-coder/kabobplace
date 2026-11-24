@@ -55,6 +55,9 @@ const Header = ({ onCartOpen }: HeaderProps) => {
         <img
           src={headerLogoUrl}
           alt={brandName}
+          onError={(e) => {
+            e.currentTarget.src = kabobLogo;
+          }}
           className="h-10 w-auto max-w-[48px] object-contain drop-shadow"
         />
         <span>

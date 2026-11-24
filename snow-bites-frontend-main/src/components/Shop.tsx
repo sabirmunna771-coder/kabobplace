@@ -93,42 +93,56 @@ const Shop = () => {
 
       {/* Grid */}
       <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] max-md:grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-5 max-md:gap-3">
-        {filtered.map(item => (
-          <div key={item.id} className="bg-bg-3 border border-border rounded-xl overflow-hidden transition-all duration-[400ms] hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-[0_16px_48px_rgba(0,0,0,.45)] group relative flex flex-col justify-between">
-            <div className="absolute top-0 inset-x-0 h-[3px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left z-[2]" />
-
-            <div className="h-[170px] max-md:h-[130px] overflow-hidden relative">
-              <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-[1.08]" loading="lazy" width={512} height={512} />
-              <div className="absolute bottom-0 inset-x-0 h-2/5 bg-gradient-to-t from-bg-3 to-transparent" />
+        {filtered.length === 0 ? (
+          <div className="col-span-full py-16 text-center bg-bg-3/40 border border-border/60 rounded-2xl p-6">
+            <div className="w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center mx-auto mb-3">
+              <ShoppingCart size={22} />
             </div>
-
-            <div className="p-3.5 sm:p-[18px] flex-1 flex flex-col justify-between">
-              <div>
-                <h3 className="font-bold text-[.93rem] mb-1 leading-snug">{item.name}</h3>
-                <div className="text-[.66rem] text-accent uppercase tracking-[1.5px] font-semibold mb-2">{item.category}</div>
-                {(item.isSpicy || item.isVegetarian || item.bestSeller) && (
-                  <div className="flex flex-wrap gap-1.5 mb-3">
-                    {item.isSpicy && <span className="inline-flex items-center gap-1 rounded-full bg-red-500/15 border border-red-500/25 px-2 py-0.5 text-[.6rem] font-semibold text-red-300 uppercase tracking-[1px]"><Flame size={10} />{t('featured.spicy')}</span>}
-                    {item.isVegetarian && <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/25 px-2 py-0.5 text-[.6rem] font-semibold text-emerald-300 uppercase tracking-[1px]"><Leaf size={10} />{t('featured.veg')}</span>}
-                    {item.bestSeller && <span className="inline-flex items-center gap-1 rounded-full bg-primary/20 border border-primary/30 px-2 py-0.5 text-[.6rem] font-bold text-primary uppercase tracking-[1px]"><Award size={10} />{t('featured.bestseller')}</span>}
-                  </div>
-                )}
-              </div>
-              <div>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="font-display text-lg font-extrabold text-primary">{formatPrice(item.price)}</span>
-                </div>
-                <button
-                  onClick={() => addItem(item)}
-                  className="w-full py-2.5 sm:py-3 rounded-xl bg-primary text-primary-foreground text-xs font-bold transition-all hover:brightness-105 active:scale-[.97] flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(242,196,28,0.3)]"
-                >
-                  <ShoppingCart size={14} />
-                  <span>{t('shop.addToCart')}</span>
-                </button>
-              </div>
-            </div>
+            <p className="text-foreground font-semibold text-base">Próximamente / Nuevos platos en preparación</p>
+            <p className="text-txt-3 text-xs mt-1.5 max-w-sm mx-auto">
+              {search || activeCategory !== 'all'
+                ? "No se encontraron productos que coincidan con los filtros seleccionados."
+                : "Pronto podrás ordenar los deliciosos platos de Kabob Place directamente desde aquí."}
+            </p>
           </div>
-        ))}
+        ) : (
+          filtered.map(item => (
+            <div key={item.id} className="bg-bg-3 border border-border rounded-xl overflow-hidden transition-all duration-[400ms] hover:-translate-y-1.5 hover:border-primary/30 hover:shadow-[0_16px_48px_rgba(0,0,0,.45)] group relative flex flex-col justify-between">
+              <div className="absolute top-0 inset-x-0 h-[3px] bg-primary scale-x-0 group-hover:scale-x-100 transition-transform origin-left z-[2]" />
+
+              <div className="h-[170px] max-md:h-[130px] overflow-hidden relative">
+                <img src={item.image} alt={item.name} className="w-full h-full object-cover transition-transform duration-[600ms] group-hover:scale-[1.08]" loading="lazy" width={512} height={512} />
+                <div className="absolute bottom-0 inset-x-0 h-2/5 bg-gradient-to-t from-bg-3 to-transparent" />
+              </div>
+
+              <div className="p-3.5 sm:p-[18px] flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-bold text-[.93rem] mb-1 leading-snug">{item.name}</h3>
+                  <div className="text-[.66rem] text-accent uppercase tracking-[1.5px] font-semibold mb-2">{item.category}</div>
+                  {(item.isSpicy || item.isVegetarian || item.bestSeller) && (
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {item.isSpicy && <span className="inline-flex items-center gap-1 rounded-full bg-red-500/15 border border-red-500/25 px-2 py-0.5 text-[.6rem] font-semibold text-red-300 uppercase tracking-[1px]"><Flame size={10} />{t('featured.spicy')}</span>}
+                      {item.isVegetarian && <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 border border-emerald-500/25 px-2 py-0.5 text-[.6rem] font-semibold text-emerald-300 uppercase tracking-[1px]"><Leaf size={10} />{t('featured.veg')}</span>}
+                      {item.bestSeller && <span className="inline-flex items-center gap-1 rounded-full bg-primary/20 border border-primary/30 px-2 py-0.5 text-[.6rem] font-bold text-primary uppercase tracking-[1px]"><Award size={10} />{t('featured.bestseller')}</span>}
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="font-display text-lg font-extrabold text-primary">{formatPrice(item.price)}</span>
+                  </div>
+                  <button
+                    onClick={() => addItem(item)}
+                    className="w-full py-2.5 sm:py-3 rounded-xl bg-primary text-primary-foreground text-xs font-bold transition-all hover:brightness-105 active:scale-[.97] flex items-center justify-center gap-2 shadow-[0_4px_16px_rgba(242,196,28,0.3)]"
+                  >
+                    <ShoppingCart size={14} />
+                    <span>{t('shop.addToCart')}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </section>
   );

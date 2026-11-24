@@ -15,6 +15,10 @@ const Featured = () => {
     refetchInterval: 30_000,
   });
 
+  if (featuredItems.length === 0) {
+    return null;
+  }
+
   return (
     <section id="featured" className="py-[clamp(60px,10vw,120px)] px-4 md:px-16 max-w-[1280px] mx-auto">
       <div className="text-center mb-14">

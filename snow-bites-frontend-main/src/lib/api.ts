@@ -4,6 +4,7 @@ import friesImg from "@/assets/fries.jpg";
 import noodlesImg from "@/assets/noodles.jpg";
 import pizzaImg from "@/assets/pizza.jpg";
 import shawarmaImg from "@/assets/shawarma.jpg";
+import kabobLogo from "@/assets/logo.webp";
 import type { MenuItem } from "@/data/menu";
 
 /**
@@ -49,12 +50,12 @@ export function getApiBaseUrl(): string {
 }
 
 export function getApiOrigin(): string {
-  const base = getApiBaseUrl();
-  if (base.startsWith("http")) {
-    return base.replace(/\/api\/?$/, "");
-  }
   if (typeof window !== "undefined") {
     return window.location.origin;
+  }
+  const base = getApiBaseUrl();
+  if (base.startsWith("http")) {
+    return base.replace(/\/index\.php.*$/, "").replace(/\/api\/?$/, "");
   }
   return "";
 }
@@ -89,8 +90,12 @@ export function getApiAssetUrl(assetPath?: string | null) {
   if (/^(https?:)?\/\//.test(assetPath) || assetPath.startsWith("data:")) {
     return assetPath;
   }
+  if (assetPath === "/logo.webp" || assetPath === "logo.webp" || assetPath.endsWith("logo.webp") || assetPath.includes("logo")) {
+    return kabobLogo;
+  }
   if (assetPath.startsWith("/src/assets/") || assetPath.startsWith("src/assets/")) {
     const filename = assetPath.replace(/^(\/)?src\/assets\//, "");
+    if (filename.includes("logo")) return kabobLogo;
     if (filename.includes("chicken")) return chickenImg;
     if (filename.includes("burger")) return burger2Img;
     if (filename.includes("fries")) return friesImg;
@@ -99,7 +104,7 @@ export function getApiAssetUrl(assetPath?: string | null) {
     if (filename.includes("noodles")) return noodlesImg;
   }
 
-  const origin = getApiOrigin();
+  const origin = typeof window !== "undefined" ? window.location.origin : getApiOrigin();
   return `${origin}${assetPath.startsWith("/") ? assetPath : `/${assetPath}`}`;
 }
 

@@ -32,6 +32,9 @@ export default function MaintenanceGate({ children }: { children: ReactNode }) {
           <img
             src={getApiAssetUrl(settings.logoSuite?.headerLogo || settings.siteLogo) || kabobLogo}
             alt={settings.siteName}
+            onError={(e) => {
+              e.currentTarget.src = kabobLogo;
+            }}
             className="h-16 w-auto object-contain drop-shadow"
           />
         </div>

@@ -33,7 +33,14 @@ const Footer = () => {
       <div className="max-w-[1280px] mx-auto px-4 md:px-16 pt-16 pb-24 grid grid-cols-1 md:grid-cols-[1.5fr_repeat(3,1fr)] gap-10">
         <div>
           <Link to="/" className="font-display text-2xl font-extrabold tracking-[-1px] inline-flex items-center gap-3 hover:opacity-85 transition-opacity uppercase">
-            <img src={footerLogoUrl} alt={brandName} className="h-10 w-auto object-contain drop-shadow" />
+            <img
+              src={footerLogoUrl}
+              alt={brandName}
+              onError={(e) => {
+                e.currentTarget.src = kabobLogo;
+              }}
+              className="h-10 w-auto object-contain drop-shadow"
+            />
             <span>
               {brandFirst} {brandLast && <span className="text-primary">{brandLast}</span>}
             </span>

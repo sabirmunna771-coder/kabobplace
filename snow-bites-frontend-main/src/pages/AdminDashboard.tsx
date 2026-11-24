@@ -227,7 +227,14 @@ const AdminDashboard = () => {
           collapsed ? "justify-center px-3" : "gap-2.5 px-5",
         )}>
           <div className="flex size-9 items-center justify-center rounded-lg overflow-hidden p-0.5">
-            <img src={sidebarLogo} alt={brandName} className="size-full object-contain" />
+            <img
+              src={sidebarLogo}
+              alt={brandName}
+              onError={(e) => {
+                e.currentTarget.src = kabobLogo;
+              }}
+              className="size-full object-contain"
+            />
           </div>
           <span className={cn(
             "font-display text-[15px] font-semibold tracking-tight text-white/90 transition-all duration-300 truncate",

@@ -303,6 +303,9 @@ export default function CustomerDashboardPage() {
               <img
                 src={getApiAssetUrl(settings.logoSuite?.headerLogo || settings.siteLogo) || kabobLogo}
                 alt={brandName}
+                onError={(e) => {
+                  e.currentTarget.src = kabobLogo;
+                }}
                 className="h-10 w-auto max-w-[48px] object-contain drop-shadow"
               />
             </Link>
