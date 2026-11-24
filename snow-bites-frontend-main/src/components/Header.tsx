@@ -6,7 +6,6 @@ import { useSiteSettings } from '@/context/SiteSettingsContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { getApiAssetUrl } from '@/lib/api';
 import LanguageSwitcher from '@/components/LanguageSwitcher';
-import PaletteSwitcher from '@/components/PaletteSwitcher';
 import { ShoppingCart } from 'lucide-react';
 import kabobLogo from '@/assets/logo.webp';
 
@@ -48,7 +47,7 @@ const Header = ({ onCartOpen }: HeaderProps) => {
       {/* Backdrop */}
       <div
         className={`absolute inset-0 border-b border-border transition-opacity duration-400 ${scrolled ? 'opacity-100' : 'opacity-0'}`}
-        style={{ background: 'hsl(var(--header-bg) / 0.92)', backdropFilter: 'blur(24px) saturate(180%)' }}
+        style={{ background: 'rgba(7,31,7,.88)', backdropFilter: 'blur(24px) saturate(180%)' }}
       />
 
       {/* Logo */}
@@ -112,7 +111,6 @@ const Header = ({ onCartOpen }: HeaderProps) => {
           )}
         </button>
 
-        <PaletteSwitcher />
         <LanguageSwitcher />
       </div>
     </header>

@@ -7,7 +7,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/context/AuthContext";
 import { CartProvider } from "@/context/CartContext";
 import { ThemeProvider } from "@/context/ThemeContext";
-import { PaletteProvider } from "@/context/PaletteContext";
 import { SiteSettingsProvider } from "@/context/SiteSettingsContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -66,8 +65,7 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <SiteSettingsProvider>
       <LanguageProvider>
-        <PaletteProvider>
-          <ThemeProvider>
+        <ThemeProvider>
           <AuthProvider>
             <CartProvider>
               <TooltipProvider>
@@ -132,7 +130,6 @@ const App = () => (
             </CartProvider>
           </AuthProvider>
         </ThemeProvider>
-      </PaletteProvider>
       </LanguageProvider>
     </SiteSettingsProvider>
   </QueryClientProvider>

@@ -5,276 +5,45 @@
 @tailwind utilities;
 
 @layer base {
-  :root,
-  [data-palette="charcoal-ember"] {
-    /* ══════ Palette 2: Charcoal Ember (Carbón y Brasa) ══════ */
-    /* Dark but neutral — no green on green. The lime K pops on charcoal, ember orange buttons feel like fire and grill. */
-    --palette-name: "Charcoal Ember";
-    --header-bg: 24 22% 5%; /* #0E0B09 Header & footer */
-    --header-text: 36 36% 93%;
-
-    /* Page background #161210 */
-    --background: 20 16% 7%;
-    --bg: 20 16% 7%;
-    --bg2: 20 18% 10%;
-    --bg3: 25 20% 12%; /* #241D18 Cards, menu panels */
-    --bg4: 25 20% 16%;
-    --bg5: 25 20% 20%;
-
-    /* Cards #241D18 */
-    --card: 25 20% 12%;
-    --card-foreground: 36 36% 93%; /* #F5F0E8 Main text */
-    --popover: 25 20% 12%;
-    --popover-foreground: 36 36% 93%;
-
-    /* Buttons #E8590C (Buttons, white text) */
-    --primary: 21 90% 48%;
-    --primary-foreground: 0 0% 100%;
-    --primary-dark: 21 92% 38%;
-    --primary-light: 21 90% 56%;
-
-    /* Secondary / Elevated surface */
-    --secondary: 20 18% 10%;
-    --secondary-foreground: 36 36% 93%;
-
-    /* Prices #F2C41C (Prices — logo gold) */
-    --accent: 47 89% 53%;
-    --accent-foreground: 20 16% 7%;
-    --accent-gold: 47 89% 53%;
-
-    /* Food accent */
-    --grill-brown: 21 90% 48%;
-
-    /* Text #F5F0E8 */
-    --foreground: 36 36% 93%;
-    --text: 36 36% 93%;
-    --text2: 36 15% 75%;
-    --text3: 36 12% 60%;
-    --text4: 36 10% 42%;
-    --muted: 20 18% 14%;
-    --muted-foreground: 36 15% 70%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 25 20% 22% / 0.55;
-    --border2: 25 20% 30% / 0.6;
-    --border3: 25 20% 38% / 0.7;
-    --input: 25 20% 18% / 0.6;
-    --ring: 21 90% 48%;
-    --radius: 16px;
-
-    --glass: 25 20% 20% / 0.2;
-    --glass2: 25 20% 20% / 0.35;
-    --glass3: 25 20% 20% / 0.5;
-
-    --glow: 21 90% 48% / 0.35;
-    --glow2: 47 89% 53% / 0.25;
-    --glow3: 47 89% 53% / 0.1;
-
-    --font-display: 'Syne', sans-serif;
-    --font-head: 'Outfit', sans-serif;
-    --font-body: 'DM Sans', sans-serif;
-
-    --nav-h: 64px;
-    --bottom-h: 72px;
-    --ease-out: cubic-bezier(.16, 1, .3, 1);
-    --ease-bounce: cubic-bezier(.34, 1.56, .64, 1);
-
-    --sidebar-background: 24 22% 5%;
-    --sidebar-foreground: 36 36% 93%;
-    --sidebar-primary: 21 90% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 25 20% 12%;
-    --sidebar-accent-foreground: 36 36% 93%;
-    --sidebar-border: 25 20% 22% / 0.45;
-    --sidebar-ring: 21 90% 48%;
-  }
-
-  [data-palette="warm-cream"] {
-    /* ══════ Palette 1: Warm Cream (Crema Cálida) ══════ */
-    /* Light and bright — dark green logo stands out on cream, food photos look fresh. */
-    --palette-name: "Warm Cream";
-    --header-bg: 28 28% 13%; /* #2B2118 Header & footer */
-    --header-text: 45 35% 95%;
-
-    /* Page background #FBF6EE */
-    --background: 38 56% 96%;
-    --bg: 38 56% 96%;
-    --bg2: 38 45% 92%;
-    --bg3: 0 0% 100%; /* #FFFFFF Cards, menu panels */
-    --bg4: 38 35% 88%;
-    --bg5: 38 30% 84%;
-
-    /* Cards #FFFFFF */
-    --card: 0 0% 100%;
-    --card-foreground: 28 33% 11%; /* #241B12 Main text */
-    --popover: 0 0% 100%;
-    --popover-foreground: 28 33% 11%;
-
-    /* Buttons #C2410C (Buttons, white text) */
-    --primary: 17 88% 40%;
-    --primary-foreground: 0 0% 100%;
-    --primary-dark: 17 90% 32%;
-    --primary-light: 17 88% 48%;
-
-    /* Secondary surface */
-    --secondary: 38 45% 92%;
-    --secondary-foreground: 28 33% 11%;
-
-    /* Prices #B45309 (Prices & accents) */
-    --accent: 26 91% 37%;
-    --accent-foreground: 0 0% 100%;
-    --accent-gold: 26 91% 37%;
-
-    --grill-brown: 17 88% 40%;
-
-    /* Text #241B12 */
-    --foreground: 28 33% 11%;
-    --text: 28 33% 11%;
-    --text2: 28 20% 32%;
-    --text3: 28 15% 48%;
-    --text4: 28 12% 65%;
-    --muted: 38 40% 90%;
-    --muted-foreground: 28 15% 40%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 30 20% 82% / 0.85;
-    --border2: 30 20% 75% / 0.9;
-    --border3: 30 20% 68% / 0.95;
-    --input: 30 20% 86% / 0.9;
-    --ring: 17 88% 40%;
-    --radius: 16px;
-
-    --glass: 0 0% 100% / 0.7;
-    --glass2: 0 0% 100% / 0.85;
-    --glass3: 0 0% 100% / 0.95;
-
-    --glow: 17 88% 40% / 0.25;
-    --glow2: 26 91% 37% / 0.2;
-    --glow3: 26 91% 37% / 0.1;
-
-    --sidebar-background: 28 28% 13%;
-    --sidebar-foreground: 45 35% 95%;
-    --sidebar-primary: 17 88% 40%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 28 25% 18%;
-    --sidebar-accent-foreground: 45 35% 95%;
-    --sidebar-border: 28 20% 25% / 0.45;
-    --sidebar-ring: 17 88% 40%;
-  }
-
-  [data-palette="burgundy-gold"] {
-    /* ══════ Palette 3: Burgundy & Gold (Borgoña y Dorado) ══════ */
-    /* Classic restaurant colours — deep red sits opposite green on the colour wheel, logo stands out. */
-    --palette-name: "Burgundy & Gold";
-    --header-bg: 351 55% 27%; /* #6B1F2A Header & footer */
-    --header-text: 45 35% 95%;
-
-    /* Page background #FAF4EC */
-    --background: 34 53% 95%;
-    --bg: 34 53% 95%;
-    --bg2: 34 40% 90%;
-    --bg3: 0 0% 100%; /* #FFFFFF Cards, menu panels */
-    --bg4: 34 30% 85%;
-    --bg5: 34 25% 80%;
-
-    /* Cards #FFFFFF */
-    --card: 0 0% 100%;
-    --card-foreground: 353 24% 13%; /* #2A1A1C Main text */
-    --popover: 0 0% 100%;
-    --popover-foreground: 353 24% 13%;
-
-    /* Buttons #8C2B3A (Buttons, white text) */
-    --primary: 351 53% 36%;
-    --primary-foreground: 0 0% 100%;
-    --primary-dark: 351 55% 28%;
-    --primary-light: 351 53% 44%;
-
-    /* Secondary surface */
-    --secondary: 34 40% 90%;
-    --secondary-foreground: 353 24% 13%;
-
-    /* Prices #8C6D1F (Prices — bronze gold) */
-    --accent: 43 64% 33%;
-    --accent-foreground: 0 0% 100%;
-    --accent-gold: 43 64% 33%;
-
-    --grill-brown: 351 53% 36%;
-
-    /* Text #2A1A1C */
-    --foreground: 353 24% 13%;
-    --text: 353 24% 13%;
-    --text2: 353 15% 35%;
-    --text3: 353 12% 50%;
-    --text4: 353 10% 68%;
-    --muted: 34 30% 90%;
-    --muted-foreground: 353 15% 40%;
-
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 34 25% 84% / 0.85;
-    --border2: 34 25% 76% / 0.9;
-    --border3: 34 25% 68% / 0.95;
-    --input: 34 25% 88% / 0.9;
-    --ring: 351 53% 36%;
-    --radius: 16px;
-
-    --glass: 0 0% 100% / 0.7;
-    --glass2: 0 0% 100% / 0.85;
-    --glass3: 0 0% 100% / 0.95;
-
-    --glow: 351 53% 36% / 0.25;
-    --glow2: 43 64% 33% / 0.2;
-    --glow3: 43 64% 33% / 0.1;
-
-    --sidebar-background: 351 55% 27%;
-    --sidebar-foreground: 45 35% 95%;
-    --sidebar-primary: 351 53% 36%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 351 50% 22%;
-    --sidebar-accent-foreground: 45 35% 95%;
-    --sidebar-border: 351 40% 35% / 0.45;
-    --sidebar-ring: 351 53% 36%;
-  }
-
-  [data-palette="forest-green"] {
-    /* ══════ Palette 4: Forest Green (Verde Bosque - Original) ══════ */
-    --palette-name: "Forest Green";
-    --header-bg: 120 69% 14.1%; /* Forest Green #0B3D0B */
-    --header-text: 45 35% 95%;
-
+  :root {
+    /* Kabob Place Brand Palette (Taken from logo) */
+    /* Night Green #071F07 - Page background */
     --background: 120 63% 7.5%;
     --bg: 120 63% 7.5%;
     --bg2: 120 57% 10%;
-    --bg3: 120 69% 14.1%;
+    --bg3: 120 69% 14.1%; /* Forest Green #0B3D0B */
     --bg4: 120 66% 18.5%;
     --bg5: 120 62% 24%;
 
+    /* Forest Green #0B3D0B - Headers, cards, footer */
     --card: 120 69% 14.1%;
-    --card-foreground: 45 35% 95%;
+    --card-foreground: 45 35% 95%; /* Warm White #F7F5EF */
     --popover: 120 69% 14.1%;
     --popover-foreground: 45 35% 95%;
 
+    /* Gold #F2C41C - Buttons, prices, calls to action */
     --primary: 47 89% 53%;
-    --primary-foreground: 120 63% 7.5%;
+    --primary-foreground: 120 63% 7.5%; /* Dark Night Green text on gold for bold readability */
     --primary-dark: 47 87% 45%;
     --primary-light: 47 91% 63%;
 
+    /* Secondary / Elevated surface */
     --secondary: 120 57% 10%;
     --secondary-foreground: 45 35% 95%;
 
+    /* Lime K #A0D000 - Highlights, icons, links */
     --accent: 74 100% 41%;
     --accent-foreground: 120 63% 7.5%;
     --accent-gold: 47 89% 53%;
 
+    /* Grill Brown #A85A2A - Food accent */
     --grill-brown: 23 60% 41%;
 
+    /* Warm White #F7F5EF - Main text on dark backgrounds */
     --foreground: 45 35% 95%;
     --text: 45 35% 95%;
+
+    /* Soft Sage #B9C6B9 - Support tone, secondary text */
     --text2: 120 10% 75%;
     --text3: 120 10% 60%;
     --text4: 120 11% 41%;
@@ -298,6 +67,15 @@
     --glow: 47 89% 53% / 0.4;
     --glow2: 74 100% 41% / 0.25;
     --glow3: 74 100% 41% / 0.1;
+
+    --font-display: 'Syne', sans-serif;
+    --font-head: 'Outfit', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    --nav-h: 64px;
+    --bottom-h: 72px;
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+    --ease-bounce: cubic-bezier(.34, 1.56, .64, 1);
 
     --sidebar-background: 120 63% 7.5%;
     --sidebar-foreground: 45 35% 95%;

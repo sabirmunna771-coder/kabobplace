@@ -31,7 +31,6 @@ import { useAuth } from "@/context/AuthContext";
 import { useTheme } from "@/context/ThemeContext";
 import { useSiteSettings } from "@/context/SiteSettingsContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
-import PaletteSwitcher from "@/components/PaletteSwitcher";
 import { getApiAssetUrl } from "@/lib/api";
 import { cn } from "@/lib/utils";
 import kabobLogo from "@/assets/logo.webp";
@@ -217,7 +216,7 @@ const AdminDashboard = () => {
       <aside
         className={cn(
           "fixed inset-y-0 left-0 z-[100] flex flex-col transition-[width] duration-300 ease-out",
-          "bg-[hsl(var(--sidebar-background)/0.97)] backdrop-blur-xl border-r border-border text-foreground",
+          "bg-[#0B3D0B]/95 backdrop-blur-xl border-r border-white/10",
           collapsed ? "w-[72px]" : "w-60",
           mobileOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0",
         )}
@@ -333,7 +332,7 @@ const AdminDashboard = () => {
       />
 
       <main className={cn("min-h-screen transition-[margin-left] duration-300", collapsed ? "lg:ml-[72px]" : "lg:ml-60")}>
-        <header className="sticky top-0 z-[90] flex h-14 items-center justify-between border-b border-border bg-[hsl(var(--header-bg)/0.96)] px-4 backdrop-blur-xl sm:px-6 lg:px-8">
+        <header className="sticky top-0 z-[90] flex h-14 items-center justify-between border-b border-white/[0.06] bg-[#071F07]/95 px-4 backdrop-blur-xl sm:px-6 lg:px-8">
           {/* Left Section */}
           <div className="flex items-center gap-3">
             <button
@@ -376,7 +375,6 @@ const AdminDashboard = () => {
               <span>Storefront</span>
             </Link>
 
-            <PaletteSwitcher compact />
             <LanguageSwitcher compact />
 
             {/* Live Indicator */}
