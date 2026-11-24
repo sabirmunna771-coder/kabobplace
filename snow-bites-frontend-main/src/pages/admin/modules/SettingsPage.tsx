@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useSiteSettings } from "@/context/SiteSettingsContext";
+import { usePalette, PALETTES, type PaletteId } from "@/context/PaletteContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { SUPPORTED_LANGUAGES, type LanguageCode } from "@/i18n/translations";
 import { getAdminSettings, updateAdminSettings, type AppSettings } from "@/lib/api";
@@ -456,6 +457,7 @@ function ThemeAppearanceTab({
   settings: AppSettings;
   updateNestedSetting: UpdateNestedSettingProp;
 }) {
+  const { currentPalette, setPalette } = usePalette();
   const themeConfig = settings.themeConfig || {
     primaryColor: "#f97316",
     secondaryColor: "#ea580c",
@@ -471,6 +473,108 @@ function ThemeAppearanceTab({
         title="Design System"
         description="Control colors, typography, and UI style globally"
       />
+
+      {/* Preset Contrast Palettes from Brand Logo */}
+      <div className="bg-white/[0.03] rounded-lg border border-white/[0.04] p-6 space-y-4">
+        <div>
+          <h3 className="font-semibold flex items-center gap-2">
+            <div className="w-4 h-4 rounded-full bg-gradient-to-br from-primary to-accent" />
+            Brand & Contrast Color Palettes
+          </h3>
+          <p className="text-xs text-txt-4 mt-1">
+            Choose from the brand-approved color schemes. Switches website and dashboard colors instantly and persists for all visitors.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {PALETTES.map((p) => {
+            const isSelected = currentPalette === p.id;
+            return (
+              <button
+                key={p.id}
+                type="button"
+                onClick={() => {
+                  setPalette(p.id);
+                  updateNestedSetting("themeConfig", "primaryColor", p.swatches.button);
+                  updateNestedSetting("themeConfig", "secondaryColor", p.swatches.accent);
+                  toast.success(`Theme switched to ${p.name}`);
+                }}
+                className={cn(
+                  "p-4 rounded-xl border text-left transition-all relative flex flex-col justify-between group cursor-pointer",
+                  isSelected
+                    ? "border-primary bg-primary/10 shadow-lg shadow-primary/10 ring-1 ring-primary/40"
+                    : "border-white/[0.08] bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
+                )}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-bold text-sm text-foreground flex items-center gap-1.5">
+                      {p.name}
+                    </span>
+                    {isSelected && (
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary text-primary-foreground">
+                        <Check className="w-3 h-3" /> Active
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-[11px] text-txt-3 leading-relaxed mb-3">
+                    {p.tagline}
+                  </p>
+                </div>
+
+                {/* Swatches preview */}
+                <div className="space-y-2 pt-2 border-t border-white/[0.06]">
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className="w-5 h-5 rounded-md border border-white/20 shadow-xs"
+                      style={{ backgroundColor: p.swatches.bg }}
+                      title={`Background: ${p.swatches.bg}`}
+                    />
+                    <span
+                      className="w-5 h-5 rounded-md border border-white/20 shadow-xs"
+                      style={{ backgroundColor: p.swatches.card }}
+                      title={`Cards: ${p.swatches.card}`}
+                    />
+                    <span
+                      className="w-5 h-5 rounded-md border border-white/20 shadow-xs"
+                      style={{ backgroundColor: p.swatches.header }}
+                      title={`Header/Footer: ${p.swatches.header}`}
+                    />
+                    <span
+                      className="w-5 h-5 rounded-md border border-white/20 shadow-xs"
+                      style={{ backgroundColor: p.swatches.button }}
+                      title={`Button: ${p.swatches.button}`}
+                    />
+                    <span
+                      className="w-5 h-5 rounded-md border border-white/20 shadow-xs"
+                      style={{ backgroundColor: p.swatches.accent }}
+                      title={`Accent: ${p.swatches.accent}`}
+                    />
+                  </div>
+                  <div
+                    className="p-2 rounded-md text-[10px] font-semibold flex items-center justify-between mt-2"
+                    style={{
+                      backgroundColor: p.swatches.header,
+                      color: p.swatches.text,
+                    }}
+                  >
+                    <span style={{ color: p.swatches.accent }}>$ 6.500</span>
+                    <span
+                      className="px-2 py-0.5 rounded text-[9px] font-bold"
+                      style={{
+                        backgroundColor: p.swatches.button,
+                        color: "#ffffff",
+                      }}
+                    >
+                      Pedir Ahora
+                    </span>
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
 
       {/* Color Picker */}
       <div className="bg-white/[0.03] rounded-lg border border-white/[0.04] p-6">

@@ -27,7 +27,7 @@ const Footer = () => {
   const tagline = settings.footerTagline || 'Auténticos kabobs y comida rápida premium en el corazón de Iquique. Ingredientes frescos, sabor intenso y entrega veloz.';
 
   return (
-    <footer className="bg-[#0B3D0B]/80 border-t border-border relative overflow-hidden">
+    <footer className="bg-[hsl(var(--header-bg)/0.96)] border-t border-border relative overflow-hidden text-foreground">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
 
       <div className="max-w-[1280px] mx-auto px-4 md:px-16 pt-16 pb-24 grid grid-cols-1 md:grid-cols-[1.5fr_repeat(3,1fr)] gap-10">
