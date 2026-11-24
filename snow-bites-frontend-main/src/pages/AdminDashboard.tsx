@@ -434,7 +434,7 @@ const AdminDashboard = () => {
                 {/* User Info */}
                 <div className="border-b border-white/[0.04] px-3.5 py-3">
                   <div className="text-[12px] font-semibold text-white/80">{user?.fullName ?? `${brandName} Admin`}</div>
-                  <div className="mt-0.5 text-[10px] text-white/30">{user?.email ?? "admin@kabobplaces.cl"}</div>
+                  <div className="mt-0.5 text-[10px] text-white/30">{user?.email ?? ""}</div>
                   <div className="mt-1.5 inline-block rounded bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold text-primary/80">
                     {user?.role ?? "ADMIN"}
                   </div>

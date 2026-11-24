@@ -80,7 +80,7 @@ const AdminLogin = () => {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
             <div>
               <label className="block text-[11px] font-bold text-white/70 uppercase tracking-wider mb-1.5">
                 Correo Electrónico
@@ -89,11 +89,13 @@ const AdminLogin = () => {
                 <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40 w-4 h-4" />
                 <input
                   type="email"
-                  autoComplete="email"
+                  name="admin_user_login"
+                  autoComplete="off"
+                  data-lpignore="true"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onBlur={() => setTouched((p) => ({ ...p, email: true }))}
-                  placeholder="admin@kabobplaces.cl"
+                  placeholder="tu@correo.com"
                   className="w-full rounded-xl border border-white/15 bg-black/25 py-3 pl-10 pr-4 text-sm text-white placeholder:text-white/30 outline-none focus:border-primary focus:ring-1 focus:ring-primary/40 transition-all"
                   required
                 />
@@ -111,7 +113,9 @@ const AdminLogin = () => {
                 <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40 w-4 h-4" />
                 <input
                   type={showPassword ? "text" : "password"}
-                  autoComplete="current-password"
+                  name="admin_secret_key"
+                  autoComplete="new-password"
+                  data-lpignore="true"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   onBlur={() => setTouched((p) => ({ ...p, password: true }))}
