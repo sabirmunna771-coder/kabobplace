@@ -45,7 +45,7 @@
 
         var h = window.location.hostname;
         if (h && h !== 'localhost' && h !== '127.0.0.1' && !h.includes('.dev') && !h.includes('ngrok')) {
-          window.__SNOW_BITES_API_URL__ = window.location.origin;
+          window.__SNOW_BITES_API_URL__ = window.location.origin + '/index.php/api';
         }
       })();
     </script>
