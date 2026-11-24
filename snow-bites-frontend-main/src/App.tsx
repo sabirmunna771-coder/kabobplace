@@ -13,6 +13,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import MaintenanceGate from "@/components/MaintenanceGate";
 import Index from "./pages/Index.tsx";
 import Login from "./pages/Login.tsx";
+import AdminLogin from "./pages/AdminLogin.tsx";
 import Register from "./pages/Register.tsx";
 import Checkout from "./pages/Checkout.tsx";
 import OrderSuccess from "./pages/OrderSuccess.tsx";
@@ -100,6 +101,9 @@ const App = () => (
                         </ProtectedRoute>
                       )}
                     />
+
+                    {/* Admin Login Route */}
+                    <Route path="/admin/login" element={<AdminLogin />} />
 
                     <Route
                       path="/admin"

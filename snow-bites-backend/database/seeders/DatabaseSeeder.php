@@ -81,17 +81,14 @@ class DatabaseSeeder extends Seeder
         // Apply Kabob Place Menú Noche categories and menu items
         MenuSeeder::seedNocheMenu();
 
-        // Dynamically align orders relative to now() so metrics, charts, KDS, and riders are live and active
-        $orders = \App\Models\Order::all();
-        if ($orders->isNotEmpty()) {
-            foreach ($orders as $idx => $order) {
-                $daysAgo = ($idx >= 15) ? 0 : (($idx >= 11) ? 1 : (($idx >= 7) ? 2 : (($idx >= 4) ? 3 : 4)));
-                $hoursAgo = ($idx % 6) + 1;
-                $date = now()->subDays($daysAgo)->subHours($hoursAgo);
-                $order->created_at = $date;
-                $order->updated_at = $date;
-                $order->save();
-            }
-        }
+        // Clear all dummy/test orders, logs, and dummy customers so the store is 100% clean and dynamic
+        \Illuminate\Support\Facades\DB::table('order_items')->delete();
+        \Illuminate\Support\Facades\DB::table('order_status_histories')->delete();
+        \Illuminate\Support\Facades\DB::table('orders')->delete();
+        \Illuminate\Support\Facades\DB::table('staff_activity_logs')->delete();
+        \Illuminate\Support\Facades\DB::table('inventory_waste_logs')->delete();
+        \Illuminate\Support\Facades\DB::table('inventory_restock_logs')->delete();
+        \Illuminate\Support\Facades\DB::table('reviews')->delete();
+        \App\Models\User::where('role', 'CUSTOMER')->delete();
     }
 }

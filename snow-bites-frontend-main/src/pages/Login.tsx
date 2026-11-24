@@ -11,8 +11,8 @@ const Login = () => {
   const location = useLocation();
   const { login, isAuthenticated, isAdmin, isReady } = useAuth();
   const { t } = useLanguage();
-  const [email, setEmail] = useState("admin@kabobplaces.cl");
-  const [password, setPassword] = useState("Admin@12345");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -91,7 +91,7 @@ const Login = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     onBlur={() => setTouched((p) => ({ ...p, email: true }))}
-                    placeholder="admin@kabobplaces.cl"
+                    placeholder="tu@correo.com"
                     className={`w-full rounded-xl border bg-glass py-3.5 pl-10 pr-4 text-sm outline-none transition-all placeholder:text-txt-4 focus:border-primary focus:bg-bg-4 focus:shadow-[0_0_0_3px_hsl(var(--glow3))] ${touched.email && fieldErrors.email ? "border-destructive" : "border-border"
                       }`}
                   />

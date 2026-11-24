@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { Home, Menu, ShoppingBag, ShoppingCart, ShieldCheck, LogIn } from 'lucide-react';
+import { Home, Menu, ShoppingBag, ShoppingCart, User, LogIn } from 'lucide-react';
 
 interface BottomNavProps {
   onCartOpen: () => void;
@@ -10,7 +10,7 @@ interface BottomNavProps {
 
 const BottomNav = ({ onCartOpen }: BottomNavProps) => {
   const { totalItems } = useCart();
-  const { isAdmin } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { t } = useLanguage();
 
   const items = [
@@ -18,7 +18,7 @@ const BottomNav = ({ onCartOpen }: BottomNavProps) => {
     { icon: Menu, label: t('nav.menu'), href: '#menu' },
     { icon: ShoppingBag, label: t('nav.shop'), href: '#shop' },
     { icon: ShoppingCart, label: t('nav.cart'), href: '#', onClick: onCartOpen, badge: totalItems },
-    { icon: isAdmin ? ShieldCheck : LogIn, label: isAdmin ? t('nav.admin') : t('nav.login'), to: isAdmin ? '/admin' : '/login' },
+    { icon: isAuthenticated ? User : LogIn, label: isAuthenticated ? t('nav.account') : t('nav.login'), to: isAuthenticated ? '/account/dashboard' : '/login' },
   ];
 
   return (

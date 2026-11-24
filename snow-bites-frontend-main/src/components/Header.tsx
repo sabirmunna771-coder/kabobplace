@@ -79,15 +79,9 @@ const Header = ({ onCartOpen }: HeaderProps) => {
       <div className="flex items-center gap-2 relative z-10">
         {isAuthenticated ? (
           <>
-            {isAdmin ? (
-              <Link to="/admin" className="hidden md:inline-flex bg-glass-2 border border-border px-3.5 h-[42px] rounded-xl items-center text-xs font-semibold text-txt-2 hover:text-foreground hover:bg-glass-3 transition-all">
-                {t('nav.admin')}
-              </Link>
-            ) : (
-              <Link to="/account/dashboard" className="hidden md:inline-flex bg-glass-2 border border-border px-3.5 h-[42px] rounded-xl items-center text-xs font-semibold text-txt-2 hover:text-foreground hover:bg-glass-3 transition-all">
-                {t('nav.account')}
-              </Link>
-            )}
+            <Link to="/account/dashboard" className="hidden md:inline-flex bg-glass-2 border border-border px-3.5 h-[42px] rounded-xl items-center text-xs font-semibold text-txt-2 hover:text-foreground hover:bg-glass-3 transition-all">
+              {t('nav.account')}
+            </Link>
             <button onClick={logout} className="hidden lg:inline-flex bg-glass-2 border border-border px-3.5 h-[42px] rounded-xl items-center text-xs font-semibold text-txt-2 hover:text-foreground hover:bg-glass-3 transition-all">
               {t('nav.logout')}
             </button>
